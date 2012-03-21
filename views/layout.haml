@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %link{:href => '/style.css', :rel => 'stylesheet', :type => 'text/css'}
+    :javascript
+      $(getUpdate);
+
+  %body
+    = yield
+
+    %script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+    %script(src="/app.js")
