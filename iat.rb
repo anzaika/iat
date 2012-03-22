@@ -124,7 +124,7 @@ get '/next' do
     haml :showcase, :layout => (request.xhr? ? false : :layout)
   else
     puts "Sub_test is: " + session[:sub_test].to_i.to_s
-    haml "#showcase\n\t%a{:href => '/test/#{session[:test]+1}'}\n\t\tNext step",
+    haml "#showcase\n\t%a.btn{:href => '/test/#{session[:test]+1}'}\n\t\tNext",
          :layout => (request.xhr? ? false : :layout)
   end
 end
