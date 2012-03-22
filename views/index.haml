@@ -1,2 +1,146 @@
-%h1
-  Hello
+#intro
+  .row-fluid
+    .span2
+    .span10
+      %h1.center
+        Инструкция
+
+      %p
+        В этом задании Вам будет предъявлен ряд фотографий и слов,
+        которые необходимо классифицировать по категориям.
+      %p
+        Вверху каждой страницы будут даны названия категорий.
+        Если слово или фотография относится к категории, находящейся слева,
+        нажмите клавишу "e". Если слово или фотография относится к категории,
+        находящейся справа, нажмите клавишу "i".
+      %p
+        Постарайтесь классифицировать предъявляемые Вам слова и
+        фотографии как можно быстрее и делать как можно меньше ошибок.
+      %p
+        Ниже приводится список категорий и относящиеся к ним слова и фотографии.
+
+      %table.table.table-striped.table-condensed.table-bordered
+        %thead
+          %tr
+            %th
+              Категории
+            %th
+              Слова и фотографии
+        %tbody
+          %tr
+            %td
+              Хорошее
+            %td
+              Радость, любовь, мир, удовольствие, слава, смех, счастье, красота, радуга, рай
+          %tr
+            %td
+              Плохое
+            %td
+              Агония, страх, ужас, зло, поражение, грязь, война, яд, болезнь, преступление
+          %tr
+            %td
+              Кавказцы
+            %td
+              Лица кавказцев
+          %tr
+            %td
+              Русские
+            %td
+              Лица русских
+
+      %p
+        %h2
+          Помните:
+        %ul
+          %li
+            Держите пальцы на клавишах "е" и "i", для того чтобы ваши результаты были быстрыми
+          %li
+            Вверху страницы вам будут предъявляться названия категорий, показывающие какую клавишу нужно нажимать на предъявленное слово или фотографию
+          %li
+            Все слова и фотографии обязательно относятся к одной из категорий.
+          %li
+            Ваши результаты будут некорректными, если вы будете слишком медленно отвечать на вопросы. Пожалуйста, постарайтесь отвечать как можно быстрее.
+          %li
+            Из-за быстроты ответа вы можете допустить несколько ошибок. Это нормально.
+
+        %form.form-horizontal{:action => '/quest', :method => 'POST'}
+          %fieldset
+            %legend.center
+              Заполните данные о себе
+            .control-group
+              %label.control-label{:for => 'sex'}
+                Пол:
+              .controls
+                %input.input-small{:type => 'text', :id => 'sex', :name => 'quest[sex]'}
+
+              %label.control-label{:for => 'age'}
+                Возраст:
+              .controls
+                %input.input-small{:type => 'text', :id => 'age', :name => 'quest[age]'}
+
+              %label.control-label{:for => 'school'}
+                Школа:
+              .controls
+                %input.input-small{:type => 'text', :id => 'education', :name => 'quest[school]'}
+
+              %label.control-label{:for => 'country'}
+                Страна:
+              .controls
+                %input.input-small{:type => 'text', :id => 'country', :name => 'quest[country]'}
+
+              %label.control-label{:for => 'ethnicity'}
+                Этническая принадлежность:
+              .controls
+                %input.input-small{:type => 'text', :id => 'ethnicity', :name => 'quest[ethnicity]'}
+
+              %legend
+                Oтметьте от одного до семи утверждений, с которыми Вы могли бы согласиться:
+                %br/
+                Я не имею ничего против того, чтобы представители Кавказа...
+
+              %label.control-label{:for => 'live'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "live", :name => 'quest[live]'}
+                  Жили со мной в одном городе
+
+              %label.control-label{:for => 'neighbour'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "neighbour", :name => 'quest[neighbour]'}
+                  Были бы моими соседями
+
+              %label.control-label{:for => 'study'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "study", :name => 'quest[study]'}
+                  Учились бы вместе со мной
+
+              %label.control-label{:for => 'friends'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "friends", :name => 'quest[friends]'}
+                  Были бы моими друзьями
+
+              %label.control-label{:for => 'relatives'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "relatives", :name => 'quest[relatives]'}
+                  Были бы моими родственниками
+
+              %label.control-label{:for => 'family'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
+                  Были бы членами моей семьи
+
+              %label.control-label{:for => 'encounter'}
+                .controls
+              %label.checkbox
+                %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
+                  Я хотел бы как можно реже общаться с этими людьми
+
+              %button.btn-primary.btn-large{:type => 'submit'}
+                Поехали!
+    .span2
+

@@ -1,7 +1,8 @@
-
-
-JQuery = ->
-
-  setupAjaxCallbacks = ->
-    $('body').ajaxStart -> $('#ajax-status').show().text("Loading...")
-    $('body').ajaxStop -> $('#ajax-status').fadeOut()
+jQuery(
+  $(document).keypress( (event) ->
+    if event.charCode == 101 or event.charCode == 105
+      $('#place').load("/next")
+    else
+      alert('bad boy')
+  )
+)

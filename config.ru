@@ -1,5 +1,3 @@
-require 'app'
+require './iat'
 
-use Rack::ShowExceptions
-
-run PsyTest.new
+run Sinatra::Application
