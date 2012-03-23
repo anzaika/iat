@@ -1,5 +1,7 @@
 require 'bundler'
 Bundler.require :default
+require 'json'
+require 'data_mapper'
 
 =begin
 good_words = Array.new(10, 'good_word')
@@ -98,6 +100,17 @@ TEST_Q = {
   7 => 40
 }
 
+DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+
+class Result
+  include DataMapper::Resource
+  property :id,      Serial
+  property :quest,   Text
+  property :results, Text
+end
+
+DataMapper.auto_upgrade!
+
 enable :sessions
 get '/' do
   haml :index
@@ -111,25 +124,43 @@ end
 get '/test/:number' do
   session[:test] = params[:number].to_i
   session[:sub_test] = 0
+  session[:test_results] = ""
   haml "test_#{params[:number]}".to_sym
 end
 
+get '/tests.json' do
+  test[session[:test]].size.to_json
+end
+
 get '/next' do
-  if session[:sub_test].nil? or TEST_Q[session[:test]] >= session[:sub_test]
+  if session[:sub_test].nil? or TEST_Q[session[:test]] > session[:sub_test]
     session[:sub_test] ||= 1
     puts "Sub_test is: " + session[:sub_test].to_i.to_s
     puts "Pic is: " + test[session[:test]][session[:sub_test]-1].join(" ")
     @type, @number, @key = test[session[:test]][session[:sub_test]-1]
+    @tt = TEST_Q[session[:test]]
     session[:sub_test] += 1
     haml :showcase, :layout => (request.xhr? ? false : :layout)
+  elsif session[:test] == 7
+    puts session[:test_results].inspect
+    puts session[:quest].inspect
+    Result.create(:quest => session[:quest], :results => session[:test_results])
+    session.clear
+    haml :index
   else
     puts "Sub_test is: " + session[:sub_test].to_i.to_s
-    haml "#showcase\n\t%a.btn{:href => '/test/#{session[:test]+1}'}\n\t\tNext",
+    haml "#showcase.final\n\t%a.btn{:href => '/test/#{session[:test]+1}'}\n\t\tNext",
          :layout => (request.xhr? ? false : :layout)
   end
 end
 
 post '/quest' do
+  session[:quest] = params[:quest].to_json
   puts params[:quest]
   redirect '/test/1'
+end
+
+post '/results.json' do
+  session[:test_results] << request.body << "\n"
+  p request.body.read.to_s
 end

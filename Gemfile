@@ -8,3 +8,5 @@ gem 'shotgun'
 gem 'execjs'
 gem 'therubyracer'
 gem 'coffee-script'
+
+gem 'data_mapper'
