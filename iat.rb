@@ -1,7 +1,6 @@
 require 'bundler'
 Bundler.require :default
 require 'json'
-require 'data_mapper'
 
 =begin
 good_words = Array.new(10, 'good_word')
@@ -100,7 +99,7 @@ TEST_Q = {
   7 => 40
 }
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
 class Result
   include DataMapper::Resource
@@ -124,7 +123,7 @@ end
 get '/test/:number' do
   session[:test] = params[:number].to_i
   session[:sub_test] = 0
-  session[:test_results] = ""
+  session[:test_results] ||= ""
   haml "test_#{params[:number]}".to_sym
 end
 
@@ -135,8 +134,8 @@ end
 get '/next' do
   if session[:sub_test].nil? or TEST_Q[session[:test]] > session[:sub_test]
     session[:sub_test] ||= 1
-    puts "Sub_test is: " + session[:sub_test].to_i.to_s
-    puts "Pic is: " + test[session[:test]][session[:sub_test]-1].join(" ")
+    #puts "Sub_test is: " + session[:sub_test].to_i.to_s
+    #puts "Pic is: " + test[session[:test]][session[:sub_test]-1].join(" ")
     @type, @number, @key = test[session[:test]][session[:sub_test]-1]
     @tt = TEST_Q[session[:test]]
     session[:sub_test] += 1
@@ -148,7 +147,7 @@ get '/next' do
     session.clear
     haml :index
   else
-    puts "Sub_test is: " + session[:sub_test].to_i.to_s
+    #puts "Sub_test is: " + session[:sub_test].to_i.to_s
     haml "#showcase.final\n\t%a.btn{:href => '/test/#{session[:test]+1}'}\n\t\tNext",
          :layout => (request.xhr? ? false : :layout)
   end
