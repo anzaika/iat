@@ -62,43 +62,33 @@ test[7] = (good_pics_inv + bad_pics_inv).shuffle.shuffle.shuffle.inject([]){|a,n
 
 test = Array.new
 
-test[1] = [
+test[0] = [
   ["good_pic", 9, "e"], ["bad_pic", 2, "i"], ["good_pic", 6, "e"], ["good_pic", 4, "e"], ["bad_pic", 6, "i"], ["bad_pic", 9, "i"], ["bad_pic", 10, "i"], ["good_pic", 8, "e"], ["good_pic", 7, "e"], ["bad_pic", 4, "i"], ["bad_pic", 3, "i"], ["good_pic", 3, "e"], ["good_pic", 2, "e"], ["bad_pic", 1, "i"], ["bad_pic", 5, "i"], ["good_pic", 10, "e"], ["bad_pic", 7, "i"], ["bad_pic", 8, "i"], ["good_pic", 1, "e"], ["good_pic", 5, "e"]
 ]
 
-test[2] = [
+test[1] = [
   ["good_word", 5, "e"], ["bad_word", 9, "i"], ["bad_word", 7, "i"], ["good_word", 10, "e"], ["bad_word", 8, "i"], ["good_word", 8, "e"], ["bad_word", 2, "i"], ["bad_word", 6, "i"], ["bad_word", 10, "i"], ["good_word", 4, "e"], ["good_word", 3, "e"], ["bad_word", 3, "i"], ["bad_word", 5, "i"], ["good_word", 2, "e"], ["good_word", 7, "e"], ["good_word", 6, "e"], ["good_word", 9, "e"], ["bad_word", 1, "i"], ["good_word", 1, "e"], ["bad_word", 4, "i"]
 ]
 
-test[3] = [
+test[2] = [
   ["bad_pic", 7, "i"], ["bad_word", 1, "i"], ["bad_pic", 4, "i"], ["bad_word", 4, "i"], ["bad_pic", 5, "i"], ["good_word", 8, "e"], ["good_pic", 5, "e"], ["good_word", 4, "e"], ["good_pic", 4, "e"], ["good_word", 2, "e"], ["good_pic", 8, "e"], ["bad_word", 10, "i"], ["good_pic", 1, "e"], ["bad_word", 3, "i"], ["good_pic", 3, "e"], ["good_word", 9, "e"], ["bad_pic", 2, "i"], ["bad_word", 6, "i"], ["bad_pic", 8, "i"], ["good_word", 7, "e"]
 ]
 
-test[4] = [
+test[3] = [
   ["bad_pic", 8, "i"], ["bad_word", 1, "i"], ["bad_pic", 2, "i"], ["bad_word", 4, "i"], ["good_pic", 7, "e"], ["good_word", 8, "e"], ["bad_pic", 6, "i"], ["good_word", 4, "e"], ["bad_pic", 5, "i"], ["good_word", 2, "e"], ["good_pic", 1, "e"], ["bad_word", 10, "i"], ["good_pic", 4, "e"], ["bad_word", 3, "i"], ["bad_pic", 3, "i"], ["good_word", 9, "e"], ["good_pic", 2, "e"], ["bad_word", 6, "i"], ["bad_pic", 9, "i"], ["good_word", 7, "e"], ["good_pic", 3, "e"], ["good_word", 5, "e"], ["bad_pic", 7, "i"], ["bad_word", 2, "i"], ["bad_pic", 1, "i"], ["good_word", 1, "e"], ["good_pic", 5, "e"], ["good_word", 3, "e"], ["good_pic", 10, "e"], ["good_word", 6, "e"], ["good_pic", 8, "e"], ["bad_word", 5, "i"], ["good_pic", 9, "e"], ["bad_word", 9, "i"], ["bad_pic", 10, "i"], ["bad_word", 8, "i"], ["good_pic", 6, "e"], ["bad_word", 7, "i"], ["bad_pic", 4, "i"], ["good_word", 10, "e"]
 ]
 
-test[5] = [
+test[4] = [
   ["bad_pic", 7, "e"], ["good_pic", 1, "i"], ["bad_pic", 4, "e"], ["good_pic", 7, "i"], ["bad_pic", 9, "e"], ["bad_pic", 3, "e"], ["bad_pic", 10, "e"], ["good_pic", 9, "i"], ["bad_pic", 1, "e"], ["bad_pic", 5, "e"], ["good_pic", 10, "i"], ["good_pic", 8, "i"], ["good_pic", 4, "i"], ["bad_pic", 8, "e"], ["bad_pic", 2, "e"], ["good_pic", 2, "i"], ["good_pic", 5, "i"], ["good_pic", 3, "i"], ["good_pic", 6, "i"], ["bad_pic", 6, "e"]
 ]
 
-test[6] = [
+test[5] = [
   ["good_pic", 5, "i"], ["bad_word", 4, "i"], ["good_pic", 2, "i"], ["bad_word", 5, "i"], ["bad_pic", 4, "e"], ["bad_word", 8, "i"], ["bad_pic", 2, "e"], ["good_word", 7, "e"], ["bad_pic", 1, "e"], ["good_word", 4, "e"], ["good_pic", 7, "i"], ["bad_word", 3, "i"], ["good_pic", 4, "i"], ["bad_word", 10, "i"], ["bad_pic", 10, "e"], ["good_word", 5, "e"], ["good_pic", 9, "i"], ["bad_word", 1, "i"], ["good_pic", 6, "i"], ["good_word", 2, "e"]
 ]
 
-test[7] = [
+test[6] = [
   ["good_pic", 8, "i"], ["bad_word", 4, "i"], ["good_pic", 6, "i"], ["bad_word", 5, "i"], ["bad_pic", 3, "e"], ["bad_word", 8, "i"], ["bad_pic", 4, "e"], ["good_word", 7, "e"], ["bad_pic", 2, "e"], ["good_word", 4, "e"], ["good_pic", 9, "i"], ["bad_word", 3, "i"], ["good_pic", 1, "i"], ["bad_word", 10, "i"], ["good_pic", 5, "i"], ["good_word", 5, "e"], ["bad_pic", 1, "e"], ["bad_word", 1, "i"], ["bad_pic", 6, "e"], ["good_word", 2, "e"], ["bad_pic", 5, "e"], ["good_word", 1, "e"], ["bad_pic", 10, "e"], ["good_word", 3, "e"], ["good_pic", 4, "i"], ["bad_word", 6, "i"], ["good_pic", 7, "i"], ["bad_word", 7, "i"], ["bad_pic", 7, "e"], ["bad_word", 9, "i"], ["good_pic", 10, "i"], ["bad_word", 2, "i"], ["bad_pic", 9, "e"], ["good_word", 9, "e"], ["bad_pic", 8, "e"], ["good_word", 8, "e"], ["good_pic", 3, "i"], ["good_word", 10, "e"], ["good_pic", 2, "i"], ["good_word", 6, "e"]
 ]
-
-TEST_Q = {
-  1 => 20,
-  2 => 20,
-  3 => 20,
-  4 => 40,
-  5 => 20,
-  6 => 20,
-  7 => 40
-}
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
@@ -139,8 +129,12 @@ get '/test/:number' do
   haml "test_#{params[:number]}".to_sym
 end
 
-get '/tests.json' do
-  test[session[:test]].size.to_json
+get '/tests' do
+  haml :tests
+end
+
+get '/testSequences.json' do
+  test.to_json
 end
 
 get '/next' do
@@ -168,9 +162,9 @@ end
 post '/quest' do
   session[:quest] = params[:quest].to_json
   puts params[:quest]
-  redirect '/test/1'
+  redirect '/tests'
 end
 
-post '/results.json' do
+post '/testResults.json' do
   p Result.create(:quest => session[:quest], :results => request.body.read.to_s)
 end

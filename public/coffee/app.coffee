@@ -9,31 +9,38 @@ setupAjaxCallbacks = ->
     console.log("XHR Response: " + JSON.stringify(xhr))
   )
 
-updatePicAndTimer = ->
-  $('#place').load("/next")
-  $(document).ready(->
-    timer.set_last()
-  )
-
-
-testResults = {
-  reactionLatencies: []
-  errors: 0
+testData = {
+  results: {
+    latencies: [[],[],[],[],[],[],[]]
+    errors: [0,0,0,0,0,0,0]
+  }
+  testSequences: []
+  testInd: 0
+  subTestInd: -1
+  subTestParam: -> this.testSequnces[this.testInd][this.subTestInd]
+  subTestPath: -> "/image/"+this.subTestParam()[0]+"/"+this.subTestParam()[1]+".jpg"
+  subTestKey: -> this.subTestParam()[2]
+  downloadTestSequences: ->
+    $.get("/testSequences.json", (data) -> this.testSequnces = data)
+  uploadTestResults: ->
+    $.ajax({
+      type: "POST",
+      url: "/testResults.json",
+      contentType: "application/json",
+      data: JSON.stringify(this.results),
+      success: -> console.log("Successful run of postResult!")
+    })
 }
 
-testProgress = {
-  test: 1
-  subTest:1
-}
+iface = {
+  showNextTest: ->
+    $('#test'+(testData.testInd++)).addClass("hidden")
+    $('#test'+testData.testInd).deleteClass("hidden")
 
-uploadTestResults = ->
-  $.ajax({
-    type: "POST",
-    url: "/results.json",
-    contentType: "application/json",
-    data: JSON.stringify(testResults),
-    success: -> console.log("Successful run of postResult!")
-  })
+  showNextSubTest: ->
+    testData.subTestInd++
+    $('#test'+testData.testInd+' .showcase').html("<img src='"+testData.subTestPath()+"'></img>")
+}
 
 timer = {
   gettime: -> (new Date()).getTime()
@@ -41,27 +48,17 @@ timer = {
   diff: -> this.gettime()-this.last
 }
 
-eventToChar   = (event) -> String.fromCharCode(event.charCode)
+eventToChar = (event) -> String.fromCharCode(event.charCode)
 showcase_klass = (klass) -> $('#showcase').hasClass(klass)
 
 jQuery ->
   setupAjaxCallbacks()
+  testData.downloadTestSequences()
 
   $(document).keypress( (event) ->
-    if showcase_klass('init')
-      updatePicAndTimer()
-    else
-      if $("#tt").hasClass(testProgress.subTest)
-        testResults.reactionLatencies.push(timer.diff())
-        uploadTestResults()
-        updatePicAndTimer()
-      else
-        if showcase_klass(eventToChar(event))
-          testProgress.subTest++
-          testResults.reactionLatencies.push(timer.diff())
-          updatePicAndTimer()
-        else
-          test.errors++
-          $('#showcase').append('<div class="alert alert-error">Неправильно</div>')
-          timer.set_last()
+    iface.showNextSubTest()
+    #if testData.subTestInd == -1
+    #  iface.showNextSubTest()
+    #else if eventToChar == testData.subTestKey()
+    #  iface.showNextSubTest()
   )
