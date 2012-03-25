@@ -1,6 +1,7 @@
 require 'bundler'
 Bundler.require :default
 require 'json'
+require 'data_mapper'
 
 =begin
 good_words = Array.new(10, 'good_word')
@@ -110,15 +111,26 @@ end
 
 DataMapper.auto_upgrade!
 
+class CoffeeHandler < Sinatra::Base
+    set :views, File.join(File.dirname(__FILE__), 'public/coffee')
+
+    get "/*.js" do
+        filename = params[:splat].first
+        coffee filename.to_sym
+    end
+end
+
+use CoffeeHandler
 enable :sessions
+
 get '/' do
   haml :index
 end
 
-get '/app.js' do
-  content_type "text/javascript"
-  coffee :app
-end
+#get '/app.js' do
+#  content_type "text/javascript"
+#  coffee '../public/coffee/app.coffee'.to_sym
+#end
 
 get '/test/:number' do
   session[:test] = params[:number].to_i
@@ -160,6 +172,5 @@ post '/quest' do
 end
 
 post '/results.json' do
-  session[:test_results] << request.body << "\n"
-  p request.body.read.to_s
+  p Result.create(:quest => session[:quest], :results => request.body.read.to_s)
 end
