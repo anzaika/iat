@@ -2,6 +2,7 @@ require 'bundler'
 Bundler.require :default
 require 'json'
 require 'data_mapper'
+require 'dm-timestamps'
 
 =begin
 good_words = Array.new(10, 'good_word')
@@ -94,9 +95,11 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/developm
 
 class Result
   include DataMapper::Resource
-  property :id,      Serial
-  property :quest,   Text
-  property :results, Text
+  property :id,         Serial
+  property :quest,      Text
+  property :results,    Text
+  property :created_at, DateTime
+  property :created_on, Date
 end
 
 DataMapper.auto_upgrade!
