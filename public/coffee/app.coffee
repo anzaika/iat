@@ -70,6 +70,8 @@ timer = {
 
 eventToChar = (event) -> String.fromCharCode(event.charCode)
 
+previousAttemptErroneous = false
+
 jQuery ->
   setupAjaxCallbacks()
   testData.downloadTestSequences()
@@ -83,6 +85,7 @@ jQuery ->
       iface.showNextSubTest()
     # Correct key for this subTest pressed
     else if eventToChar(event) == testData.subTestKey()
+      previousAttemptErroneous = false
       if testData.subTestInd == (testData.testSequences[testData.testInd].length-1)
         if testData.testInd == 6
           console.log('dumping data...')
@@ -94,7 +97,8 @@ jQuery ->
         else
           testData.addLat(time)
           testData.subTestInd = -1
-          console.log(testData.results.latencies[0])
+          console.log("Test latencies:"+testData.results.latencies[testData.testInd])
+          console.log("Test errors:"+testData.results.errors[testData.testInd])
           iface.showNextTest()
       else
         testData.addLat(time)
@@ -103,7 +107,9 @@ jQuery ->
     # Wrong key for this subTest pressed
     else
       iface.showError()
-      testData.addErr()
+      if !previousAttemptErroneous
+        testData.addErr()
+        previousAttemptErroneous = true
       timer.setLast()
   )
 
