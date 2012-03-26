@@ -40,11 +40,14 @@ iface = {
     $('#test'+(testData.testInd++)).addClass("hidden")
     $('#test'+testData.testInd).removeClass("hidden")
 
+  # using $().load led to inadequately long latencies
   showNextSubTest: ->
     testData.subTestInd++
     console.log(testData.subTestParam())
     console.log(testData.testInd+" "+testData.subTestInd+" "+testData.testSequences[testData.testInd].length)
-    $('#test' + testData.testInd + ' .showcase').html("<img src='" + testData.subTestPath() + "'></img>")
+    $('#test' + testData.testInd + ' .showcase')
+      .html("<img src='" + testData.subTestPath() + "'></img>")
+    timer.setLast()
 
   showGreetings: ->
     $('#greetings').removeClass("hidden")
@@ -60,9 +63,9 @@ iface = {
 
 timer = {
   last: 0
-  gettime: -> (new Date()).getTime()
-  setLast: -> this.last = this.gettime()
-  diff: -> this.gettime()-this.last
+  getTime: -> (new Date()).getTime()
+  setLast: -> this.last = this.getTime()
+  diff: -> this.getTime()-this.last
 }
 
 eventToChar = (event) -> String.fromCharCode(event.charCode)
@@ -70,14 +73,14 @@ eventToChar = (event) -> String.fromCharCode(event.charCode)
 jQuery ->
   setupAjaxCallbacks()
   testData.downloadTestSequences()
+  timer.setLast()
 
   $(document).keypress( (event) ->
     time = timer.diff()
     if testData.testComplete
       return
-    if testData.subTestInd == -1
+    else if testData.subTestInd == -1
       iface.showNextSubTest()
-      timer.setLast()
     # Correct key for this subTest pressed
     else if eventToChar(event) == testData.subTestKey()
       if testData.subTestInd == (testData.testSequences[testData.testInd].length-1)
@@ -91,9 +94,11 @@ jQuery ->
         else
           testData.addLat(time)
           testData.subTestInd = -1
+          console.log(testData.results.latencies[0])
           iface.showNextTest()
       else
         testData.addLat(time)
+        console.log("Latency: "+time)
         iface.showNextSubTest()
     # Wrong key for this subTest pressed
     else
