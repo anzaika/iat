@@ -78,24 +78,23 @@ jQuery ->
     if testData.subTestInd == -1
       iface.showNextSubTest()
       timer.setLast()
-    # last subTest for this Test reached
-    else if testData.subTestInd == (testData.testSequences[testData.testInd].length-1)
-      # this Test is the last Test
-      if testData.testInd == 6
-        console.log('dumping data...')
-        testData.uploadTestResults()
-        $('#test'+testData.testInd).addClass("hidden")
-        iface.showGreetings()
-        testData.testComplete = true
-      # or not
-      else
-        testData.addLat(time)
-        testData.subTestInd = -1
-        iface.showNextTest()
     # Correct key for this subTest pressed
     else if eventToChar(event) == testData.subTestKey()
-      testData.addLat(time)
-      iface.showNextSubTest()
+      if testData.subTestInd == (testData.testSequences[testData.testInd].length-1)
+        if testData.testInd == 6
+          console.log('dumping data...')
+          testData.uploadTestResults()
+          $('#test'+testData.testInd).addClass("hidden")
+          iface.showGreetings()
+          testData.testComplete = true
+        # or not
+        else
+          testData.addLat(time)
+          testData.subTestInd = -1
+          iface.showNextTest()
+      else
+        testData.addLat(time)
+        iface.showNextSubTest()
     # Wrong key for this subTest pressed
     else
       iface.showError()
