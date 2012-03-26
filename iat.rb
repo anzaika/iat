@@ -117,46 +117,12 @@ get '/' do
   haml :index
 end
 
-#get '/app.js' do
-#  content_type "text/javascript"
-#  coffee '../public/coffee/app.coffee'.to_sym
-#end
-
-get '/test/:number' do
-  session[:test] = params[:number].to_i
-  session[:sub_test] = 0
-  session[:test_results] ||= ""
-  haml "test_#{params[:number]}".to_sym
-end
-
 get '/tests' do
   haml :tests
 end
 
 get '/testSequences.json' do
   test.to_json
-end
-
-get '/next' do
-  if session[:sub_test].nil? or TEST_Q[session[:test]] > session[:sub_test]
-    session[:sub_test] ||= 1
-    #puts "Sub_test is: " + session[:sub_test].to_i.to_s
-    #puts "Pic is: " + test[session[:test]][session[:sub_test]-1].join(" ")
-    @type, @number, @key = test[session[:test]][session[:sub_test]-1]
-    @tt = TEST_Q[session[:test]]
-    session[:sub_test] += 1
-    haml :showcase, :layout => (request.xhr? ? false : :layout)
-  elsif session[:test] == 7
-    puts session[:test_results].inspect
-    puts session[:quest].inspect
-    Result.create(:quest => session[:quest], :results => session[:test_results])
-    session.clear
-    haml :index
-  else
-    #puts "Sub_test is: " + session[:sub_test].to_i.to_s
-    haml "#showcase.final\n\t%a.btn{:href => '/test/#{session[:test]+1}'}\n\t\tNext",
-         :layout => (request.xhr? ? false : :layout)
-  end
 end
 
 post '/quest' do

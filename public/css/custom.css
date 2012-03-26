@@ -40,5 +40,5 @@ table th {
 }
 
 #tests .hidden {
-  visibility: hidden;
+  display: none;
 }
