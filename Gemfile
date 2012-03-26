@@ -10,5 +10,7 @@ gem 'therubyracer'
 gem 'coffee-script'
 
 gem 'data_mapper'
-gem 'dm-sqlite-adapter'
+group :development do
+  gem 'dm-sqlite-adapter'
+end
 gem 'dm-postgres-adapter'
