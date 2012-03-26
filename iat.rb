@@ -133,4 +133,5 @@ end
 
 post '/testResults.json' do
   p Result.create(:quest => session[:quest], :results => request.body.read.to_s)
+  session.clear
 end

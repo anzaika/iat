@@ -1,15 +1,16 @@
 setupAjaxCallbacks = ->
-  #  $('body').ajaxStart( ->
-  #  $('#ajax-status').show().text("Loading...")
-  #)
-  #$('body').ajaxStop( ->
-  #  $("#ajax-status").fadeOut();
-  #)
+  $('body').ajaxStart( ->
+    $('#ajax-status').show().text("Loading...")
+  )
+  $('body').ajaxStop( ->
+    $("#ajax-status").fadeOut();
+  )
   $('body').ajaxError( (event, xhr, ajaxOptions, thrownError) ->
     console.log("XHR Response: " + JSON.stringify(xhr))
   )
 
 testData = {
+  testComplete: false
   results: {
     latencies: [[],[],[],[],[],[],[]]
     errors: [0,0,0,0,0,0,0]
@@ -20,8 +21,8 @@ testData = {
   subTestParam: -> this.testSequences[this.testInd][this.subTestInd]
   subTestPath: -> "/images/"+this.subTestParam()[0]+"/"+this.subTestParam()[1]+".jpg"
   subTestKey: -> this.subTestParam()[2]
-  add_lat: (lat) -> testData.results.latencies[testData.testInd].push(lat)
-  add_err: -> this.results.errors[this.testInd]++
+  addLat: (lat) -> testData.results.latencies[testData.testInd].push(lat)
+  addErr: -> this.results.errors[this.testInd]++
   downloadTestSequences: ->
     $.get("/testSequences.json", (data) -> testData.testSequences = JSON.parse(data) )
   uploadTestResults: ->
@@ -46,6 +47,7 @@ iface = {
     $('#test' + testData.testInd + ' .showcase').html("<img src='" + testData.subTestPath() + "'></img>")
 
   showGreetings: ->
+    $('#greetings').removeClass("hidden")
 
   showError: ->
     if $('#test' + testData.testInd + ' .alert').length
@@ -59,7 +61,7 @@ iface = {
 timer = {
   last: 0
   gettime: -> (new Date()).getTime()
-  set_last: -> this.last = this.gettime()
+  setLast: -> this.last = this.gettime()
   diff: -> this.gettime()-this.last
 }
 
@@ -70,24 +72,35 @@ jQuery ->
   testData.downloadTestSequences()
 
   $(document).keypress( (event) ->
+    time = timer.diff()
+    if testData.testComplete
+      return
     if testData.subTestInd == -1
       iface.showNextSubTest()
-      timer.set_last()
+      timer.setLast()
+    # last subTest for this Test reached
     else if testData.subTestInd == (testData.testSequences[testData.testInd].length-1)
+      # this Test is the last Test
       if testData.testInd == 6
         console.log('dumping data...')
         testData.uploadTestResults()
+        $('#test'+testData.testInd).addClass("hidden")
         iface.showGreetings()
+        testData.testComplete = true
+      # or not
       else
-        testData.add_lat(timer.diff())
+        testData.addLat(time)
         testData.subTestInd = -1
         iface.showNextTest()
+    # Correct key for this subTest pressed
     else if eventToChar(event) == testData.subTestKey()
-      testData.add_lat(timer.diff())
+      testData.addLat(time)
       iface.showNextSubTest()
+    # Wrong key for this subTest pressed
     else
       iface.showError()
-      timer.set_last()
+      testData.addErr()
+      timer.setLast()
   )
 
 
