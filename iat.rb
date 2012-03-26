@@ -120,6 +120,12 @@ get '/' do
   haml :index
 end
 
+get '/data' do
+  Result.all.map do |r|
+    "#{r['quest']}<br/>#{r['results']}<br/>**************************<br/>"
+  end.join
+end
+
 get '/tests' do
   haml :tests
 end
