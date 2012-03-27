@@ -37,8 +37,12 @@ testData = {
 
 iface = {
   showNextTest: ->
-    $('#test'+(testData.testInd++)).addClass("hidden")
-    $('#test'+testData.testInd).removeClass("hidden")
+    $('#test'+(testData.testInd++))
+      .fadeOut()
+      .parent()
+      .find('#test'+testData.testInd)
+      .delay(500)
+      .fadeIn()
 
   # using $().load led to inadequately long latencies
   showNextSubTest: ->
@@ -50,7 +54,7 @@ iface = {
     timer.setLast()
 
   showGreetings: ->
-    $('#greetings').removeClass("hidden")
+    $('#greetings').fadeIn()
 
   showError: ->
     if $('#test' + testData.testInd + ' .alert').length
@@ -71,10 +75,11 @@ timer = {
 eventToChar = (event) -> String.fromCharCode(event.charCode)
 
 previousAttemptErroneous = false
+testData.downloadTestSequences()
 
 jQuery ->
   setupAjaxCallbacks()
-  testData.downloadTestSequences()
+  $('#tests').children().hide().first().delay(1000).fadeIn()
   timer.setLast()
 
   $(document).keypress( (event) ->
