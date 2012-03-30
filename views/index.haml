@@ -15,10 +15,14 @@
         Вверху каждой страницы будут даны названия категорий.
         Если слово или фотография относится к категории, находящейся слева,
         нажмите клавишу "e". Если слово или фотография относится к категории,
-        находящейся справа, нажмите клавишу "i".
+        находящейся справа, нажмите клавишу "i". Удобнее всего сразу расположить
+        средние пальцы левой и правой рук на соответствующих клавишах. Не забудьте
+        переключиться на английскую раскладку =)
       %p
         Постарайтесь классифицировать предъявляемые Вам слова и
         фотографии как можно быстрее и делать как можно меньше ошибок.
+        Каждая из появляющихся картинок обязательно относится к одной из предложенных
+        категорий.
       %p
         Ниже приводится список категорий и относящиеся к ним слова и фотографии.
 
@@ -51,21 +55,6 @@
             %td
               Лица русских
 
-      #reminder
-        %h2
-          Помните:
-        %ul
-          %li
-            Держите средние пальцы левой и правой руки на клавишах 'e' и 'i' соответственно.
-          %li
-            Вверху страницы вам будут предъявляться названия категорий, показывающие какую клавишу нужно нажимать на предъявленное слово или фотографию
-          %li
-            Все слова и фотографии обязательно относятся к одной из категорий.
-          %li
-            Ваши результаты будут некорректными, если вы будете слишком медленно отвечать на вопросы. Пожалуйста, постарайтесь отвечать как можно быстрее.
-          %li
-            Из-за большой скорости ответа вы можете допустить несколько ошибок - это нормально.
-
     %form.form-horizontal{:action => '/quest', :method => 'POST'}
       %fieldset
         .row-fluid.well
@@ -79,7 +68,7 @@
                 %label.control-label{:for => 'age'}
                   Возраст:
                 .controls
-                  %input.input-small{:type => 'text', :id => 'age', :name => 'quest[age]'}
+                  %input.input-small{:type => 'text', :id => 'age', :name => 'quest[age]', :placeholder => '15'}
 
               .control-group
                 %label.control-label{:for => 'sex'}
@@ -111,27 +100,28 @@
                 Я не имею ничего против того, чтобы представители Кавказа...
 
               .control-group
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "live", :name => 'quest[live]'}
-                    Жили со мной в одном городе
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "neighbour", :name => 'quest[neighbour]'}
-                    Были бы моими соседями
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "study", :name => 'quest[study]'}
-                    Учились бы вместе со мной
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "friends", :name => 'quest[friends]'}
-                    Были бы моими друзьями
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "relatives", :name => 'quest[relatives]'}
-                    Были бы моими родственниками
-                %label.checkbox
-                  %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
-                    Были бы членами моей семьи
+                .first
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "live", :name => 'quest[live]'}
+                      жили со мной в одном городе
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "neighbour", :name => 'quest[neighbour]'}
+                      были бы моими соседями
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "study", :name => 'quest[study]'}
+                      учились бы вместе со мной
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "friends", :name => 'quest[friends]'}
+                      были бы моими друзьями
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "relatives", :name => 'quest[relatives]'}
+                      были бы моими родственниками
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
+                      были бы членами моей семьи
 
               .control-group
-                %label.checkbox
+                %label.checkbox.last
                   %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
                     Я желаю как можно реже встречаться с этими людьми
 

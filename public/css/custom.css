@@ -1,6 +1,5 @@
 body {
   position: relative;
-  padding-top: 90px;
   background-color: #f9f9f9;
   font-size: 15px;
 }
@@ -12,7 +11,7 @@ body {
 
 #introduction h1 {
   font-size: 44px;
-  padding: 55px 0;
+  padding: 45px 0;
 }
 
 h1, h2, .center {
@@ -21,6 +20,7 @@ h1, h2, .center {
 }
 
 #reminder {
+  padding-top: 45px;
   font-size: 15px;
 }
 
@@ -68,8 +68,13 @@ form #personal-data .controls {
   text-align: left;
 }
 
-#behaviour .control-group {
+#behaviour .control-group .first {
   padding-left: 90px;
+}
+
+#behaviour .control-group .last {
+  padding-left: 36px;
+  text-size: 18px;
 }
 
 #submit-button button {
