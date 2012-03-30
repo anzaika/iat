@@ -2,11 +2,13 @@ body {
   position: relative;
   background-color: #f9f9f9;
   font-size: 15px;
+  line-height : 1.5em;
 }
 
 #introduction p {
   font-size: 15px;
   padding: 5px 0;
+  line-height : 1.5em;
 }
 
 #introduction h1 {
@@ -73,8 +75,7 @@ form #personal-data .controls {
 }
 
 #behaviour .control-group .last {
-  padding-left: 36px;
-  text-size: 18px;
+  padding-left: 90px;
 }
 
 #submit-button button {
