@@ -1,19 +1,16 @@
-#intro
-  .row-fluid
-    .span2
-    .span10
-      %h1.center
-        Инструкция
+%script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+%script(src="/alert.js")
+
+.row
+  .span10.offset1
+
+    #introduction
+      %h1
+        Добро пожаловать!
 
       %p
-
-      %p
-        %span.label.label-important
-          К сожалению тест будет работать некорректно в браузере Opera.
-          Пожалуйста используйте Firefox, Chrome, Safari, IE.
-      %p
-        В этом задании Вам будет предъявлен ряд фотографий и слов,
-        которые необходимо классифицировать по категориям.
+        Вам будет предложен тест в процессе которого нужно классифицировать
+        по категориям ряд фотографий и слов.
       %p
         Вверху каждой страницы будут даны названия категорий.
         Если слово или фотография относится к категории, находящейся слева,
@@ -25,7 +22,7 @@
       %p
         Ниже приводится список категорий и относящиеся к ним слова и фотографии.
 
-      %table.table.table-striped.table-condensed.table-bordered
+      %table.table.table-condensed.table-bordered
         %thead
           %tr
             %th
@@ -54,12 +51,12 @@
             %td
               Лица русских
 
-      %p
+      #reminder
         %h2
           Помните:
         %ul
           %li
-            Держите пальцы на клавишах "е" и "i", для того чтобы ваши результаты были быстрыми
+            Держите средние пальцы левой и правой руки на клавишах 'e' и 'i' соответственно.
           %li
             Вверху страницы вам будут предъявляться названия категорий, показывающие какую клавишу нужно нажимать на предъявленное слово или фотографию
           %li
@@ -67,80 +64,78 @@
           %li
             Ваши результаты будут некорректными, если вы будете слишком медленно отвечать на вопросы. Пожалуйста, постарайтесь отвечать как можно быстрее.
           %li
-            Из-за быстроты ответа вы можете допустить несколько ошибок. Это нормально.
+            Из-за большой скорости ответа вы можете допустить несколько ошибок - это нормально.
 
-        %form.form-horizontal{:action => '/quest', :method => 'POST'}
-          %fieldset
-            %legend.center
-              Заполните данные о себе
-            .control-group
-              %label.control-label{:for => 'sex'}
-                Пол:
-              .controls
-                %input.input-small{:type => 'text', :id => 'sex', :name => 'quest[sex]'}
-
-              %label.control-label{:for => 'age'}
-                Возраст:
-              .controls
-                %input.input-small{:type => 'text', :id => 'age', :name => 'quest[age]'}
-
-              %label.control-label{:for => 'school'}
-                Школа:
-              .controls
-                %input.input-small{:type => 'text', :id => 'education', :name => 'quest[school]'}
-
-              %label.control-label{:for => 'ethnicity'}
-                Этническая принадлежность:
-              .controls
-                %input.input-small{:type => 'text', :id => 'ethnicity', :name => 'quest[ethnicity]'}
+    %form.form-horizontal{:action => '/quest', :method => 'POST'}
+      %fieldset
+        .row-fluid.well
+          .span4
+            #personal-data
 
               %legend
-                Oтметьте от одного до семи утверждений, с которыми Вы могли бы согласиться:
-                %br/
+                Заполните данные о себе
+
+              .control-group
+                %label.control-label{:for => 'age'}
+                  Возраст:
+                .controls
+                  %input.input-small{:type => 'text', :id => 'age', :name => 'quest[age]'}
+
+              .control-group
+                %label.control-label{:for => 'sex'}
+                  Пол:
+                .controls
+                  %label.radio.inline
+                    %input{:type => 'radio', :name => 'quest[sex]', :id => 'sex1', :value => 'male'}
+                      м
+                  %label.radio.inline
+                    %input{:type => 'radio', :name => 'quest[sex]', :id => 'sex2', :value => 'female'}
+                      ж
+
+              .control-group
+                %label.control-label{:for => 'school'}
+                  Номер школы:
+                .controls
+                  %input.input-small{:type => 'text', :id => 'school', :name => 'quest[school]', :placeholder => '183'}
+
+              .control-group
+                %label.control-label{:for => 'ethnicity'}
+                  Этнос:
+                .controls
+                  %input.input-small{:type => 'text', :id => 'ethnicity', :name => 'quest[ethnicity]', :placeholder => 'русская'}
+
+          .span7
+            #behaviour
+
+              %legend
                 Я не имею ничего против того, чтобы представители Кавказа...
 
-              %label.control-label{:for => 'live'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "live", :name => 'quest[live]'}
-                  Жили со мной в одном городе
+              .control-group
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "live", :name => 'quest[live]'}
+                    Жили со мной в одном городе
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "neighbour", :name => 'quest[neighbour]'}
+                    Были бы моими соседями
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "study", :name => 'quest[study]'}
+                    Учились бы вместе со мной
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "friends", :name => 'quest[friends]'}
+                    Были бы моими друзьями
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "relatives", :name => 'quest[relatives]'}
+                    Были бы моими родственниками
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
+                    Были бы членами моей семьи
 
-              %label.control-label{:for => 'neighbour'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "neighbour", :name => 'quest[neighbour]'}
-                  Были бы моими соседями
+              .control-group
+                %label.checkbox
+                  %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
+                    Я желаю как можно реже встречаться с этими людьми
 
-              %label.control-label{:for => 'study'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "study", :name => 'quest[study]'}
-                  Учились бы вместе со мной
-
-              %label.control-label{:for => 'friends'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "friends", :name => 'quest[friends]'}
-                  Были бы моими друзьями
-
-              %label.control-label{:for => 'relatives'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "relatives", :name => 'quest[relatives]'}
-                  Были бы моими родственниками
-
-              %label.control-label{:for => 'family'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
-                  Были бы членами моей семьи
-
-              %label.control-label{:for => 'encounter'}
-                .controls
-              %label.checkbox
-                %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
-                  Я хотел бы как можно реже общаться с этими людьми
-
-              %button.btn-primary.btn-large{:type => 'submit'}
-                Поехали!
-    .span2
+        .actions
+          #submit-button
+            %button.btn-primary.btn-large{:type => 'submit'}
+              Поехали!

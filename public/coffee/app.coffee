@@ -60,9 +60,8 @@ iface = {
     if $('#test' + testData.testInd + ' .alert').length
       $('#test' + testData.testInd + ' .alert').fadeIn().delay(800).fadeOut()
     else
-      $('#test' + testData.testInd + ' .showcase').append("<div class='alert alert-error'>Ошибка!</div>")
+      $('#test' + testData.testInd + ' .showcase').append("<div class='alert alert-error'><h2>Ошибка!</h2></div>")
       $('#test' + testData.testInd + ' .alert').delay(800).fadeOut()
-
 }
 
 timer = {

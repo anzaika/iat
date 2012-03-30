@@ -1,13 +1,13 @@
-!!!
+!!! 5
 %html
   %head
     %link{:href => '/css/bootstrap.css', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => '/css/bootstrap-responsive.css', :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => '/css/custom.css', :rel => 'stylesheet', :type => 'text/css'}
-    %style{:type => 'text/css'}
 
   %body
-    #ajax-status
+    #browser-alert.alert.alert-error
+      %h3
+        К сожалению тест будет работать некорректно в браузере Opera.
+        Пожалуйста используйте Firefox, Chrome, Safari или IE.
     .container
-      #main_content
-        = yield
+      = yield
