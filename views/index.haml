@@ -24,7 +24,7 @@
         Каждая из появляющихся картинок обязательно относится к одной из предложенных
         категорий.
       %p
-        Ниже приводится список категорий и относящиеся к ним слова и фотографии.
+        Ниже приведён список категорий и относящиеся к ним слова и фотографии.
 
       %table.table.table-condensed.table-bordered
         %thead
@@ -119,11 +119,9 @@
                   %label.checkbox
                     %input{:type => "checkbox", :value => "family", :name => 'quest[family]'}
                       были бы членами моей семьи
-
-              .control-group
-                %label.checkbox.last
-                  %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
-                    Я желаю как можно реже встречаться с этими людьми
+                  %label.checkbox
+                    %input{:type => "checkbox", :value => "encounter", :name => 'quest[encounter]'}
+                      Я желаю как можно реже встречаться с этими людьми
 
         .actions
           #submit-button
