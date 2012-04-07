@@ -113,6 +113,13 @@ class CoffeeHandler < Sinatra::Base
     end
 end
 
+class Array
+  def mean
+    val = self.select{|v| (v>=100) && (v<=3000)}
+    ((val.inject(:+).to_f)/(val.size)).round(2)
+  end
+end
+
 use CoffeeHandler
 enable :sessions
 
@@ -122,7 +129,9 @@ end
 
 get '/data' do
   Result.all.map do |r|
-    "#{r['quest']}<br/>#{r['results']}<br/>**************************<br/>"
+    lats = JSON.load(r['results'])['latencies'].map(&:mean)
+    errors = JSON.load(r['results'])['errors']
+    "#{r['quest']}<br/>Lat means: #{lats}<br/>Errors: #{errors}<br/>**************************<br/>"
   end.join
 end
 
