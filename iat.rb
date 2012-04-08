@@ -138,7 +138,7 @@ get '/data' do
       next
     end
   end
-  result.prepend("Total: #{Result.count}<br/><br/>")
+  result.insert(0,"Total: #{Result.count}<br/><br/>")
 end
 
 get '/tests' do
