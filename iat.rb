@@ -137,7 +137,7 @@ get '/data' do
       "#{JSON.load(r['results'])}<br/>***********************************<br/>"
       next
     end
-  end.join
+  end.join.prepend("Total: #{Result.count}<br/><br/>")
 end
 
 get '/tests' do
