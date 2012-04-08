@@ -116,7 +116,7 @@ end
 class Array
   def mean
     val = self.select{|v| (v>=100) && (v<=3000)}
-    ((val.inject(:+).to_f)/(val.size)).round(2)
+    ((val.inject(:+))/(val.size))
   end
 end
 
