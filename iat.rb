@@ -128,16 +128,17 @@ get '/' do
 end
 
 get '/data' do
+  result = ""
   Result.all.map do |r|
     begin
       lats = JSON.load(r['results'])['latencies'].map(&:mean)
       errors = JSON.load(r['results'])['errors']
-      "#{r['quest']}<br/>Lat means: #{lats}<br/>Errors: #{errors}<br/>**************************<br/>"
+      result << "#{r['quest']}<br/>Lat means: #{lats}<br/>Errors: #{errors}<br/>**************************<br/>"
     rescue
-      "#{JSON.load(r['results'])}<br/>***********************************<br/>"
       next
     end
-  end.join.prepend("Total: #{Result.count}<br/><br/>")
+  end
+  result.prepend("Total: #{Result.count}<br/><br/>")
 end
 
 get '/tests' do
