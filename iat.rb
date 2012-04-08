@@ -129,10 +129,14 @@ end
 
 get '/data' do
   Result.all.map do |r|
-    next unless r['results'] || JSON.load(r['results']) || JSON.load(r['results'])['latencies']
-    lats = JSON.load(r['results'])['latencies'].map(&:mean)
-    errors = JSON.load(r['results'])['errors']
-    "#{r['quest']}<br/>Lat means: #{lats}<br/>Errors: #{errors}<br/>**************************<br/>"
+    begin
+      lats = JSON.load(r['results'])['latencies'].map(&:mean)
+      errors = JSON.load(r['results'])['errors']
+      "#{r['quest']}<br/>Lat means: #{lats}<br/>Errors: #{errors}<br/>**************************<br/>"
+    rescue
+      "#{JSON.load(r['results'])}<br/>***********************************<br/>"
+      next
+    end
   end.join
 end
 
